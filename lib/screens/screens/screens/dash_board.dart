@@ -1,3 +1,5 @@
+import 'package:coolwell/common/data/api_utils.dart';
+import 'package:coolwell/common/data/model/tech_list_model.dart';
 import 'package:coolwell/common/widget/custom_widget.dart';
 import 'package:coolwell/screens/screens/models/RecentFile.dart';
 import 'package:coolwell/screens/screens/screens/dashboard/components/chart.dart';
@@ -16,6 +18,18 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
+  APIUtils apiUtils=APIUtils();
+  bool loading=false;
+  int techCount=0;
+  int userCount=0;
+  int jobCount=0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
@@ -233,7 +247,7 @@ class _DashboardState extends State<Dashboard> {
                         height: 10.0,
                       ),
                       Text(
-                        "Total customers",
+                        "Total Technicians",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: CustomWidget(context: context).CustomTextStyle(
@@ -355,7 +369,8 @@ class _DashboardState extends State<Dashboard> {
                         height: 10.0,
                       ),
                       Text(
-                        "Total customers",
+
+                        "Total jobs",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: CustomWidget(context: context).CustomTextStyle(
@@ -368,7 +383,7 @@ class _DashboardState extends State<Dashboard> {
                         height: 10.0,
                       ),
                       Text(
-                        "256",
+                        jobCount.toString(),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style:
@@ -560,6 +575,8 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
+
+
 }
 
 DataRow recentFileDataRow(RecentFile fileInfo,BuildContext context) {

@@ -3,6 +3,7 @@ import 'package:coolwell/responsive/responsive.dart';
 import 'package:coolwell/screens/screens/models/menu_modal.dart';
 import 'package:coolwell/screens/screens/screens/customers.dart';
 import 'package:coolwell/screens/screens/screens/dash_board.dart';
+import 'package:coolwell/screens/screens/screens/technicain.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,9 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> bottomPage = [
     Dashboard(),
     CustomersScreen(),
-    Container(
-      color: Colors.green,
-    ),
+  TechScreen(),
     Container(
       color: Colors.yellow,
     ),

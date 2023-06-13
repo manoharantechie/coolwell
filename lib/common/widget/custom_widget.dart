@@ -1,5 +1,6 @@
 
 import 'package:coolwell/common/colors.dart';
+import 'package:coolwell/common/widget/ring.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -162,106 +163,48 @@ class CustomWidget {
     );
   }
 
-  failureDialog(bool type, String title, String message, String ButText) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0)), //this right here
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  // ClayContainer(
-                  //   emboss: false,
-                  //   color: Color(0xFFF2F2F2),
-                  //   height: 120.0,
-                  //   width: 120.0,
-                  //   depth: 100,
-                  //   spread: 15.0,
-                  //   curveType: CurveType.concave,
-                  //   borderRadius: 180,
-                  //   child: Container(
-                  //       padding: EdgeInsets.all(0.0),
-                  //       decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(180),
-                  //         gradient: LinearGradient(
-                  //           begin: Alignment.topCenter,
-                  //           end: Alignment(0.5, 1),
-                  //           colors: <Color>[
-                  //             Color(0xffffffff),
-                  //             Color(0xffffffff),
-                  //             Color(0xffffffff),
-                  //           ],
-                  //           tileMode: TileMode.mirror,
-                  //         ),
-                  //       ),
-                  //       child: Container(
-                  //         decoration: BoxDecoration(
-                  //             borderRadius: BorderRadius.circular(180),
-                  //             color: Colors.white),
-                  //         child: Neumorphic(
-                  //             drawSurfaceAboveChild: false,
-                  //             padding: EdgeInsets.all(0.0),
-                  //             style: NeumorphicStyle(
-                  //                 boxShape: NeumorphicBoxShape.circle(),
-                  //                 shape: NeumorphicShape.convex,
-                  //                 depth: -15,
-                  //                 color: Colors.white30),
-                  //             child: Container(
-                  //               padding: EdgeInsets.all(0.0),
-                  //               child: Center(
-                  //                 child: Image.asset(
-                  //                   type
-                  //                       ? 'assets/images/success.png'
-                  //                       : 'assets/images/failed.png',
-                  //                   height: 190.0,
-                  //                 ),
-                  //               ),
-                  //             )),
-                  //       )),
-                  // ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Text(
-                    title,
-                    style: CustomWidget(context: context)
-                        .CustomSizedTextStyle(24.0, AppColors.appColor,
-                        FontWeight.w700, 'FontRegular'),
-                  ),
-                  SizedBox(
-                    height: 15.0,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        message,
-                        textAlign: TextAlign.center,
-                        style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(15.0,AppColors.appColor,
-                            FontWeight.w500, 'FontRegular'),
-                      ),
-                      SizedBox(
-                        height: 40.0,
-                      ),
 
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
-                  ),
-                ],
-              ));
-        });
-    // show the dialog
+  Widget loadingIndicator(Color color) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      // color:  Color(0xFF1d0068),
+      child:  Center(
+        child: Container(
+          child: Center(
+            child: SpinKitDualRing(
+              color: color,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
 
+
+ void custombar (BuildContext contexts,String text,bool type) {
+    final snackBar = SnackBar(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+
+      content: Container(
+
+        height: 35.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(child:  Text(text),),
+            IconButton(onPressed: (){
+
+            }, icon: Icon(Icons.clear,color: Colors.white,size: 10.0,))
+          ],
+        ),
+      ),
+      behavior: SnackBarBehavior.floating,
+      duration: const Duration(milliseconds: 500),
+      backgroundColor: type ?Colors.teal:Colors.redAccent,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
 }
