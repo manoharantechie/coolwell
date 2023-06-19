@@ -29,7 +29,7 @@ class TechListModel {
 }
 
 class TechList {
-  int? techId;
+  dynamic techId;
   String? profilePic;
   dynamic twofa;
   String? role;
@@ -37,7 +37,7 @@ class TechList {
   bool? google;
   bool? facebook;
   String? phone;
-  int? status;
+  dynamic status;
   bool? gmailVerified;
   bool? phoneVerified;
 

@@ -58,21 +58,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            InkWell(
-                              child:    SvgPicture.asset(
-                                'assets/icon/add.svg',
-                                height: 80.0,
-                                width: 80.0,
-                              ),
-                              onTap: (){
-                                setState(() {
-                                  // addTech=true;
-                                });
-                              },
-                            ),
-                            const SizedBox(
-                              width: 5.0,
-                            ),
+
                             SvgPicture.asset(
                               'assets/icon/list.svg',
                               height: 80.0,
@@ -243,12 +229,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                     )
                   ],
                 ),
-                InkWell(
-                  child: SvgPicture.asset('assets/icon/edit.svg'),
-                  onTap: (){
 
-                  },
-                )
               ],
             ),
           ),
@@ -273,7 +254,6 @@ class _CustomersScreenState extends State<CustomersScreen> {
   }
 
   getTechList() {
-
     apiUtils
         .getUserList(limit, page).then((Userlistmodel loginData) {
       setState(() {

@@ -3,6 +3,7 @@ import 'package:coolwell/responsive/responsive.dart';
 import 'package:coolwell/screens/screens/models/menu_modal.dart';
 import 'package:coolwell/screens/screens/screens/customers.dart';
 import 'package:coolwell/screens/screens/screens/dash_board.dart';
+import 'package:coolwell/screens/screens/screens/job_assign.dart';
 import 'package:coolwell/screens/screens/screens/technicain.dart';
 
 import 'package:flutter/material.dart';
@@ -23,6 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
     MenuModel(icon: 'assets/side/manage.svg', title: "Management"),
     MenuModel(icon: 'assets/side/job.svg', title: "Job Assign"),
     MenuModel(icon: 'assets/side/message.svg', title: "Message"),
+    MenuModel(icon: 'assets/side/manage.svg', title: "Category"), 
+    MenuModel(icon: 'assets/side/manage.svg', title: "Service"),
     MenuModel(icon: 'assets/side/setting.svg', title: "Setting"),
     MenuModel(icon: 'assets/side/logout.svg', title: "Logout"),
   ];
@@ -39,9 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Container(
       color: Colors.yellow,
     ),
-    Container(
-      color: Colors.grey,
-    ),
+    JobAssignScreen(),
     Container(
       color: Colors.cyan,
     ),

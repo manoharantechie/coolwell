@@ -44,8 +44,11 @@ class _TechScreenState extends State<TechScreen> {
 
   List<TechList> techList = [];
 
+  TechList? editList;
   bool addTech = false;
+  bool editTech = false;
 
+  String profile="";
   @override
   void initState() {
     // TODO: implement initState
@@ -94,7 +97,9 @@ class _TechScreenState extends State<TechScreen> {
                                         onTap: () {
                                           setState(() {
                                             addTech = true;
+                                            editTech=false;
                                           });
+
                                         },
                                       ),
                                       const SizedBox(
@@ -165,7 +170,7 @@ class _TechScreenState extends State<TechScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Add Technician",
+               editTech?  "Update Technician":  "Add Technician",
                   style: CustomWidget(context: context).CustomSizedTextStyle(
                     16.0,
                     AppColors.textColor,
@@ -432,7 +437,7 @@ class _TechScreenState extends State<TechScreen> {
                 const SizedBox(
                   width: 20.0,
                 ),
-                Flexible(
+           editTech?Container():     Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -494,7 +499,64 @@ class _TechScreenState extends State<TechScreen> {
                 const SizedBox(
                   width: 20.0,
                 ),
-                Flexible(
+                editTech? Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Mobile",
+                        style:
+                        CustomWidget(context: context).CustomSizedTextStyle(
+                          12.0,
+                          AppColors.hintColor,
+                          FontWeight.w400,
+                          "FontRegular",
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      TextFormFieldCustom(
+                        onEditComplete: () {
+                          mobileFocus.unfocus();
+                        },
+                        radius: 10.0,
+                        error: "Enter Email or Phone Number",
+                        textColor: AppColors.blackColor,
+                        borderColor: AppColors.whiteColor,
+                        fillColor: AppColors.whiteColor,
+                        hintStyle: CustomWidget(context: context)
+                            .CustomSizedTextStyle(12.0, AppColors.hintColor,
+                            FontWeight.w600, 'FontRegular'),
+                        textStyle: CustomWidget(context: context)
+                            .CustomSizedTextStyle(16.0, AppColors.blackColor,
+                            FontWeight.w600, 'FontRegular'),
+                        textInputAction: TextInputAction.next,
+                        focusNode: mobileFocus,
+                        maxlines: 1,
+                        text: '',
+                        hintText: "Mobile Number",
+                        obscureText: false,
+                        textChanged: (value) {},
+                        onChanged: () {},
+                        suffix: Container(
+                          width: 0.0,
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter Mobile number";
+                          }
+
+                          return null;
+                        },
+                        enabled: true,
+                        textInputType: TextInputType.name,
+                        controller: mobileController,
+                      )
+                    ],
+                  ),
+                  flex: 1,
+                ):   Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -558,7 +620,7 @@ class _TechScreenState extends State<TechScreen> {
             const SizedBox(
               height: 20.0,
             ),
-            Row(
+      editTech?Container() :     Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Flexible(
@@ -641,6 +703,7 @@ class _TechScreenState extends State<TechScreen> {
                     onTap: () {
                       setState(() {
                         addTech = false;
+                        editTech=false;
                       });
                     },
                     child: Container(
@@ -665,6 +728,7 @@ class _TechScreenState extends State<TechScreen> {
                     onTap: () {
                       setState(() {
                         addTech = false;
+                        editTech=false;
 
                         nameController.clear();
                         rollController.clear();
@@ -714,7 +778,13 @@ class _TechScreenState extends State<TechScreen> {
                       setState(() {
                         if (emailformKey.currentState!.validate()) {
                           loading = true;
-                          addTEchni();
+                          if(editTech)
+                            {
+                              editTEchni();
+                            }
+                          else{
+                            addTEchni();
+                          }
                         }
                       });
                     },
@@ -737,7 +807,7 @@ class _TechScreenState extends State<TechScreen> {
                       ),
                       child: Center(
                         child: Text(
-                          "Add",
+                        editTech?"Update" : "Add",
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(16.0, AppColors.whiteColor,
                                   FontWeight.w500, "FontRegular"),
@@ -871,7 +941,21 @@ class _TechScreenState extends State<TechScreen> {
                 ),
                 InkWell(
                   child: SvgPicture.asset('assets/icon/edit.svg'),
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      addTech=true;
+                      editTech=true;
+                      editList=techListData;
+                      nameController.text=techListData.name.toString();
+                      cityController.text=techListData.city.toString();
+                      areaController.text=techListData.area.toString();
+                      pincodeController.text=techListData.pincode.toString();
+                    //  emailController.text=techListData.email.toString();
+                      mobileController.text=techListData.phone.toString();
+                     // passwordController.text=techListData.pa.toString();
+
+                    });
+                  },
                 )
               ],
             ),
@@ -910,6 +994,8 @@ class _TechScreenState extends State<TechScreen> {
         }
       });
     }).catchError((Object error) {
+
+      print(error);
       setState(() {
         loading = false;
       });
@@ -925,12 +1011,13 @@ class _TechScreenState extends State<TechScreen> {
             pincodeController.text.toString(),
             emailController.text.toString(),
             passwordController.text.toString(),
-            mobileController.text.toString())
+            mobileController.text.toString(),profile)
         .then((CommonModel loginData) {
       setState(() {
         if (loginData.success!) {
           setState(() {
             addTech = false;
+            editTech=false;
             nameController.clear();
             rollController.clear();
             cityController.clear();
@@ -940,7 +1027,50 @@ class _TechScreenState extends State<TechScreen> {
             passwordController.clear();
             mobileController.clear();
             getTechList();
+            CustomWidget(context: context)
+                .custombar(context, loginData.message.toString(), true);
+          });
+        } else {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar(context, loginData.message.toString(), false);
+        }
+      });
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
+  }
 
+
+
+  editTEchni() {
+    apiUtils
+        .updateTechnician(
+      editList!.id.toString(),
+        nameController.text.toString(),
+        cityController.text.toString(),
+        areaController.text.toString(),
+        pincodeController.text.toString(),
+        editList!.latitude.toString(),
+        editList!.longitude.toString(),
+        mobileController.text.toString(), editList!.profilePic.toString(),)
+        .then((CommonModel loginData) {
+      setState(() {
+        if (loginData.success!) {
+          setState(() {
+            addTech = false;
+            editTech = false;
+            nameController.clear();
+            rollController.clear();
+            cityController.clear();
+            areaController.clear();
+            pincodeController.clear();
+            emailController.clear();
+            passwordController.clear();
+            mobileController.clear();
+            getTechList();
             CustomWidget(context: context)
                 .custombar(context, loginData.message.toString(), true);
           });
