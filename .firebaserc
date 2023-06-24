@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "coolwell-dd0e0",
+    "master": "coolwell-dd0e0",
+    "staging": "coolwell-dd0e0"
+  },
+  "targets": {},
+  "etags": {}
+}

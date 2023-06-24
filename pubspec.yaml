@@ -40,6 +40,7 @@ dependencies:
   http:
   shared_preferences:
   url_launcher:
+  firebase_core:
 
 dev_dependencies:
   flutter_test:

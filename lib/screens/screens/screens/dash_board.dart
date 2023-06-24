@@ -677,10 +677,10 @@ DataRow recentFileDataRow(HistoryList fileInfo,BuildContext context) {
         padding: EdgeInsets.only(left: 10.0,right: 10.0,top: 3.0,bottom: 3.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          color: fileInfo.serviceStatus.toString()=="1"?AppColors.gradi1Color:fileInfo.serviceStatus.toString()=="2"?AppColors.buyColor:AppColors.buttonColor,
+          color:fileInfo.serviceStatus.toString()=="3"?AppColors.gradi1Color: fileInfo.serviceStatus.toString()=="1"?AppColors.gradi1Color:fileInfo.serviceStatus.toString()=="2"?AppColors.buyColor:AppColors.buttonColor,
 
         ),
-        child: Text(fileInfo.serviceStatus.toString()=="1"?"Processing":fileInfo.serviceStatus.toString()=="2"?"Completed":"Waiting",style:  CustomWidget(context: context).CustomSizedTextStyle(
+        child: Text(fileInfo.serviceStatus.toString()=="3"?"Assigned":fileInfo.serviceStatus.toString()=="1"?"Processing":fileInfo.serviceStatus.toString()=="2"?"Completed":"Waiting",style:  CustomWidget(context: context).CustomSizedTextStyle(
           10.0,
           AppColors.whiteColor,
           FontWeight.w400,

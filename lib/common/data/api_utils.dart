@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class APIUtils {
   final appName = 'Coolwell';
 
-  static const baseURL = "http://139.59.30.46";
+  static const baseURL = "http://139.59.30.46/api";
   static const String logInURL = '/login';
   static const String techListURL = '/admin/TechnicianList';
   static const String userListURL = '/users/list';
@@ -24,6 +24,7 @@ class APIUtils {
   static const String getCategoryURL = '/admin/GetCategory';
   static const String getServiceURL = '/admin/GetCategory';
   static const String addCategoryURL = '/admin/GetCategory';
+  static const String assignTechURL = '/admin/AssignJobs';
 
   Future<LoginModel> doLoginEmail(
     String email,
@@ -161,5 +162,26 @@ class APIUtils {
         headers: requestHeaders);
 
     return CategoryListModel.fromJson(json.decode(response.body));
+  }
+  Future<CommonModel> assignTech(String Complaint_id,String Technician_id) async {
+    print(Complaint_id);
+    print(Technician_id);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var auth = "Bearer " + preferences.getString("token").toString();
+
+    Map<String, String> requestHeaders = {
+      'authorization': auth.toString(),
+    };
+
+    var bodyData = {
+      'Complaint_id': Complaint_id,
+      'Technician_id': Technician_id,
+
+    };
+    final response = await http.post(Uri.parse(baseURL + assignTechURL),body: bodyData,
+        headers: requestHeaders);
+
+    print(response.body);
+    return CommonModel.fromJson(json.decode(response.body));
   }
 }

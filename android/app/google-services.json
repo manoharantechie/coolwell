@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "93931199067",
+    "project_id": "coolwell-dd0e0",
+    "storage_bucket": "coolwell-dd0e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93931199067:android:59d28986c2674fbba63d7e",
+        "android_client_info": {
+          "package_name": "com.example.coolwell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "93931199067-k4c39pevn4eif97tamsqa1lgfvje0mio.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJx76TLwOxXghaDKsachGNBwYJ_K3moLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "93931199067-k4c39pevn4eif97tamsqa1lgfvje0mio.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
