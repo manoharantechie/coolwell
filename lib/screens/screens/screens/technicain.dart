@@ -76,7 +76,7 @@ class _TechScreenState extends State<TechScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Customers",
+                                    "Technicians",
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                       16.0,
