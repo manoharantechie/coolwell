@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../common/colors.dart';
+import '../../../common/data/api_utils.dart';
+import '../../../common/data/model/complaint_list_model.dart';
 import '../../../common/widget/custom_widget.dart';
 import '../../../responsive/responsive.dart';
 import 'dash_board.dart';
@@ -18,6 +20,8 @@ class TaskManagementScreen extends StatefulWidget {
 class _TaskManagementScreenState extends State<TaskManagementScreen> {
 
   bool loading=false;
+  APIUtils apiUtils=APIUtils();
+  List<ComplaintList> history=[];
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +79,7 @@ class _TaskManagementScreenState extends State<TaskManagementScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Assign Technician",
+                "Task Management",
                 style: CustomWidget(context: context).CustomSizedTextStyle(
                   16.0,
                   AppColors.textColor,
@@ -90,7 +94,7 @@ class _TaskManagementScreenState extends State<TaskManagementScreen> {
             height: 10.0,
           ),
 
-          Container(
+          history.length>0?  Container(
             width: double.infinity,
             decoration: BoxDecoration(
               color: AppColors.whiteColor,
@@ -194,10 +198,11 @@ class _TaskManagementScreenState extends State<TaskManagementScreen> {
                 ),
               ],
               rows: List.generate(
-                2, (index) => recentFileDataRow(context: context),
+                history.length,
+                    (index) => recentFileDataRow(history[index] as HistoryList,context),
               ),
             ),
-          ),
+          ):
           Container(
             height: MediaQuery.of(context).size.height*0.5,
             child: Center(
@@ -216,4 +221,31 @@ class _TaskManagementScreenState extends State<TaskManagementScreen> {
       ),
     );
   }
+
+
+
+  getTechList() {
+    apiUtils.getComplaintlist().then((ComplaintListModel loginData) {
+      setState(() {
+        if (loginData.success!) {
+          setState(() {
+            loading = false;
+            history = loginData.result!;
+          });
+        } else {
+          loading = false;
+        }
+      });
+    }).catchError((Object error) {
+
+      print(error);
+      setState(() {
+        loading = false;
+      });
+    });
+  }
+
 }
+
+
+

@@ -4,6 +4,8 @@ import 'package:coolwell/screens/screens/models/menu_modal.dart';
 import 'package:coolwell/screens/screens/screens/customers.dart';
 import 'package:coolwell/screens/screens/screens/dash_board.dart';
 import 'package:coolwell/screens/screens/screens/job_assign.dart';
+import 'package:coolwell/screens/screens/screens/logout.dart';
+import 'package:coolwell/screens/screens/screens/task_management_screen.dart';
 import 'package:coolwell/screens/screens/screens/technicain.dart';
 
 import 'package:flutter/material.dart';
@@ -38,10 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> bottomPage = [
     Dashboard(),
     CustomersScreen(),
-  TechScreen(),
-    Container(
-      color: Colors.yellow,
-    ),
+    TechScreen(),
+    TaskManagementScreen(),
     JobAssignScreen(),
     Container(
       color: Colors.cyan,
@@ -49,6 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
     Container(
       color: Colors.pink,
     ),
+    Container(
+      color: Colors.red,
+    ),
+    Container(
+      color: Colors.purple,
+    ),
+    Logout_Screen()
   ];
 
   int selected = 0;
